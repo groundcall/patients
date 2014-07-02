@@ -1,0 +1,13 @@
+alex_users_homepage:
+    pattern:  /
+    defaults: { _controller: AlexUsersBundle:Patient:index }
+AlexUsersBundle_users:
+        resource: "@AlexUsersBundle/Resources/config/routing/user.yml"
+        prefix:   /users
+AlexUsersBundle_patients:
+        resource: "@AlexUsersBundle/Resources/config/routing/patient.yml"
+        prefix:   /patients
+AlexUsersBundle_hospital:
+        resource: "@AlexUsersBundle/Resources/config/routing/hospital.yml"
+        prefix:   /hospital
+

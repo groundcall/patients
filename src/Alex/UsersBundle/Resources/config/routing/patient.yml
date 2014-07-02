@@ -1,0 +1,30 @@
+patients:
+    path:     /
+    defaults: { _controller: "AlexUsersBundle:Patient:index" }
+
+patients_show:
+    path:     /{id}/show
+    defaults: { _controller: "AlexUsersBundle:Patient:show" }
+
+patients_new:
+    path:     /new
+    defaults: { _controller: "AlexUsersBundle:Patient:new" }
+
+patients_create:
+    path:     /create
+    defaults: { _controller: "AlexUsersBundle:Patient:create" }
+    requirements: { _method: post }
+
+patients_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AlexUsersBundle:Patient:edit" }
+
+patients_update:
+    path:     /{id}/update
+    defaults: { _controller: "AlexUsersBundle:Patient:update" }
+    requirements: { _method: post|put }
+
+patients_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AlexUsersBundle:Patient:delete" }
+    requirements: { _method: post|delete }

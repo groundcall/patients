@@ -1,0 +1,30 @@
+users:
+    path:     /
+    defaults: { _controller: "AlexUsersBundle:User:index" }
+
+users_show:
+    path:     /{id}/show
+    defaults: { _controller: "AlexUsersBundle:User:show" }
+
+users_new:
+    path:     /new
+    defaults: { _controller: "AlexUsersBundle:User:new" }
+
+users_create:
+    path:     /create
+    defaults: { _controller: "AlexUsersBundle:User:create" }
+    requirements: { _method: post }
+
+users_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AlexUsersBundle:User:edit" }
+
+users_update:
+    path:     /{id}/update
+    defaults: { _controller: "AlexUsersBundle:User:update" }
+    requirements: { _method: post|put }
+
+users_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AlexUsersBundle:User:delete" }
+    requirements: { _method: post|delete }

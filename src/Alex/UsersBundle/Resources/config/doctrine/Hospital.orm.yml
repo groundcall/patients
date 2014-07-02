@@ -1,0 +1,25 @@
+Alex\UsersBundle\Entity\Hospital:
+    type: entity
+    repositoryClass: Alex\UsersBundle\Repository\HospitalRepository
+    table: hospitals
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        address:
+            type: string
+            length: 255
+        phone:
+            type: string
+            length: 15
+#    oneToMany:
+#        users:
+#            targetEntity: User
+#            mappedBy: hospitals
+#            cascade: ["persist"]
+        

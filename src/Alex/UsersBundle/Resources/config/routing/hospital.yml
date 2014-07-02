@@ -1,0 +1,30 @@
+hospital:
+    path:     /
+    defaults: { _controller: "AlexUsersBundle:Hospital:index" }
+
+hospital_show:
+    path:     /{id}/show
+    defaults: { _controller: "AlexUsersBundle:Hospital:show" }
+
+hospital_new:
+    path:     /new
+    defaults: { _controller: "AlexUsersBundle:Hospital:new" }
+
+hospital_create:
+    path:     /create
+    defaults: { _controller: "AlexUsersBundle:Hospital:create" }
+    requirements: { _method: post }
+
+hospital_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AlexUsersBundle:Hospital:edit" }
+
+hospital_update:
+    path:     /{id}/update
+    defaults: { _controller: "AlexUsersBundle:Hospital:update" }
+    requirements: { _method: post|put }
+
+hospital_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AlexUsersBundle:Hospital:delete" }
+    requirements: { _method: post|delete }

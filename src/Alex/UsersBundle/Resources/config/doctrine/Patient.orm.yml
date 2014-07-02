@@ -1,0 +1,37 @@
+Alex\UsersBundle\Entity\Patient:
+    type: entity
+    repositoryClass: Alex\UsersBundle\Repository\PatientRepository
+    table: patients
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        birthdate:
+            type: date
+        phone:
+            type: string
+            length: 15
+        address:
+            type: string
+            length: 255
+        created_at:
+            type: datetime
+        updated_at:
+            type: datetime
+            nullable: true
+    manyToOne:
+        hospital:
+            targetEntity: Hospital
+            inversedBy: patients
+            joinColumn:
+                name: hospital_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+            

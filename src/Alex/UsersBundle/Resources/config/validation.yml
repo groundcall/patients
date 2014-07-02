@@ -1,0 +1,4 @@
+Alex\UsersBundle\Entity\Patient:
+    properties:
+        hospital:
+            - NotBlank: ~

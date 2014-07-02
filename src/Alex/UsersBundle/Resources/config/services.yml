@@ -1,0 +1,7 @@
+parameters:
+#    alex_users.example.class: Alex\UsersBundle\Example
+
+services:
+#    alex_users.example:
+#        class: %alex_users.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

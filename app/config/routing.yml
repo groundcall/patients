@@ -1,0 +1,5 @@
+alex_users:
+    resource: "@AlexUsersBundle/Resources/config/routing.yml"
+    prefix:   /
+
+

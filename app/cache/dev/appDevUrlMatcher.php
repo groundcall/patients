@@ -135,76 +135,192 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // _welcome
+        // alex_users_homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', '_welcome');
+                return $this->redirect($pathinfo.'/', 'alex_users_homepage');
             }
 
-            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::indexAction',  '_route' => '_welcome',);
+            return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::indexAction',  '_route' => 'alex_users_homepage',);
         }
 
-        if (0 === strpos($pathinfo, '/demo')) {
-            if (0 === strpos($pathinfo, '/demo/secured')) {
-                if (0 === strpos($pathinfo, '/demo/secured/log')) {
-                    if (0 === strpos($pathinfo, '/demo/secured/login')) {
-                        // _demo_login
-                        if ($pathinfo === '/demo/secured/login') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::loginAction',  '_route' => '_demo_login',);
-                        }
-
-                        // _demo_security_check
-                        if ($pathinfo === '/demo/secured/login_check') {
-                            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::securityCheckAction',  '_route' => '_demo_security_check',);
-                        }
-
-                    }
-
-                    // _demo_logout
-                    if ($pathinfo === '/demo/secured/logout') {
-                        return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::logoutAction',  '_route' => '_demo_logout',);
-                    }
-
-                }
-
-                if (0 === strpos($pathinfo, '/demo/secured/hello')) {
-                    // acme_demo_secured_hello
-                    if ($pathinfo === '/demo/secured/hello') {
-                        return array (  'name' => 'World',  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',  '_route' => 'acme_demo_secured_hello',);
-                    }
-
-                    // _demo_secured_hello
-                    if (preg_match('#^/demo/secured/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloAction',));
-                    }
-
-                    // _demo_secured_hello_admin
-                    if (0 === strpos($pathinfo, '/demo/secured/hello/admin') && preg_match('#^/demo/secured/hello/admin/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                        return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_secured_hello_admin')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\SecuredController::helloadminAction',));
-                    }
-
-                }
-
-            }
-
-            // _demo
-            if (rtrim($pathinfo, '/') === '/demo') {
+        if (0 === strpos($pathinfo, '/users')) {
+            // users
+            if (rtrim($pathinfo, '/') === '/users') {
                 if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', '_demo');
+                    return $this->redirect($pathinfo.'/', 'users');
                 }
 
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::indexAction',  '_route' => '_demo',);
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::indexAction',  '_route' => 'users',);
             }
 
-            // _demo_hello
-            if (0 === strpos($pathinfo, '/demo/hello') && preg_match('#^/demo/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => '_demo_hello')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::helloAction',));
+            // users_show
+            if (preg_match('#^/users/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_show')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::showAction',));
             }
 
-            // _demo_contact
-            if ($pathinfo === '/demo/contact') {
-                return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\DemoController::contactAction',  '_route' => '_demo_contact',);
+            // users_new
+            if ($pathinfo === '/users/new') {
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::newAction',  '_route' => 'users_new',);
             }
+
+            // users_create
+            if ($pathinfo === '/users/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_users_create;
+                }
+
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::createAction',  '_route' => 'users_create',);
+            }
+            not_users_create:
+
+            // users_edit
+            if (preg_match('#^/users/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_edit')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::editAction',));
+            }
+
+            // users_update
+            if (preg_match('#^/users/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_users_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_update')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::updateAction',));
+            }
+            not_users_update:
+
+            // users_delete
+            if (preg_match('#^/users/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_users_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_delete')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::deleteAction',));
+            }
+            not_users_delete:
+
+        }
+
+        if (0 === strpos($pathinfo, '/patients')) {
+            // patients
+            if (rtrim($pathinfo, '/') === '/patients') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'patients');
+                }
+
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::indexAction',  '_route' => 'patients',);
+            }
+
+            // patients_show
+            if (preg_match('#^/patients/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'patients_show')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::showAction',));
+            }
+
+            // patients_new
+            if ($pathinfo === '/patients/new') {
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::newAction',  '_route' => 'patients_new',);
+            }
+
+            // patients_create
+            if ($pathinfo === '/patients/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_patients_create;
+                }
+
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::createAction',  '_route' => 'patients_create',);
+            }
+            not_patients_create:
+
+            // patients_edit
+            if (preg_match('#^/patients/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'patients_edit')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::editAction',));
+            }
+
+            // patients_update
+            if (preg_match('#^/patients/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_patients_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'patients_update')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::updateAction',));
+            }
+            not_patients_update:
+
+            // patients_delete
+            if (preg_match('#^/patients/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_patients_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'patients_delete')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::deleteAction',));
+            }
+            not_patients_delete:
+
+        }
+
+        if (0 === strpos($pathinfo, '/hospital')) {
+            // hospital
+            if (rtrim($pathinfo, '/') === '/hospital') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'hospital');
+                }
+
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::indexAction',  '_route' => 'hospital',);
+            }
+
+            // hospital_show
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_show')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::showAction',));
+            }
+
+            // hospital_new
+            if ($pathinfo === '/hospital/new') {
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::newAction',  '_route' => 'hospital_new',);
+            }
+
+            // hospital_create
+            if ($pathinfo === '/hospital/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_hospital_create;
+                }
+
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::createAction',  '_route' => 'hospital_create',);
+            }
+            not_hospital_create:
+
+            // hospital_edit
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_edit')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::editAction',));
+            }
+
+            // hospital_update
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_hospital_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_update')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::updateAction',));
+            }
+            not_hospital_update:
+
+            // hospital_delete
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_hospital_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_delete')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::deleteAction',));
+            }
+            not_hospital_delete:
 
         }
 

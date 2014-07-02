@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Hospital</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ entity.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="jobs">
+        {% for patient in patients %}
+            <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
+                <td class="name"><a href="{{ path('patients_show', { 'id': patient.id }) }}">{{ patient.name }}</a></td>
+                <td class="company">{{ patient.birthdate | date('Y-m-d')}}</td>
+                <td class="name">{{ patient.phone }}</td>
+                <td class="name">{{ patient.address }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('hospital') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('hospital_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}
