@@ -156,6 +156,66 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
 
         }
 
+        if (0 === strpos($pathinfo, '/hospital')) {
+            // hospital
+            if (rtrim($pathinfo, '/') === '/hospital') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'hospital');
+                }
+
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::indexAction',  '_route' => 'hospital',);
+            }
+
+            // hospital_show
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_show')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::showAction',));
+            }
+
+            // hospital_new
+            if ($pathinfo === '/hospital/new') {
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::newAction',  '_route' => 'hospital_new',);
+            }
+
+            // hospital_create
+            if ($pathinfo === '/hospital/create') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_hospital_create;
+                }
+
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::createAction',  '_route' => 'hospital_create',);
+            }
+            not_hospital_create:
+
+            // hospital_edit
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_edit')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::editAction',));
+            }
+
+            // hospital_update
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/update$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'PUT'))) {
+                    $allow = array_merge($allow, array('POST', 'PUT'));
+                    goto not_hospital_update;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_update')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::updateAction',));
+            }
+            not_hospital_update:
+
+            // hospital_delete
+            if (preg_match('#^/hospital/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('POST', 'DELETE'))) {
+                    $allow = array_merge($allow, array('POST', 'DELETE'));
+                    goto not_hospital_delete;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'hospital_delete')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalController::deleteAction',));
+            }
+            not_hospital_delete:
+
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

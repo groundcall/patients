@@ -4,7 +4,7 @@
     <parameter key="kernel.root_dir">/var/www/patients/app</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.name">app</parameter>
+    <parameter key="kernel.name">ap_</parameter>
     <parameter key="kernel.cache_dir">/var/www/patients/app/cache/dev</parameter>
     <parameter key="kernel.logs_dir">/var/www/patients/app/logs</parameter>
     <parameter key="kernel.bundles" type="collection">
@@ -27,7 +27,7 @@
     <parameter key="database_driver">pdo_mysql</parameter>
     <parameter key="database_host">127.0.0.1</parameter>
     <parameter key="database_port">null</parameter>
-    <parameter key="database_name">patients_db</parameter>
+    <parameter key="database_name">patients</parameter>
     <parameter key="database_user">root</parameter>
     <parameter key="database_password">alternosfera511</parameter>
     <parameter key="mailer_transport">smtp</parameter>
@@ -2281,7 +2281,7 @@
         <argument key="driver">pdo_mysql</argument>
         <argument key="host">127.0.0.1</argument>
         <argument key="port">null</argument>
-        <argument key="dbname">patients_db</argument>
+        <argument key="dbname">patients</argument>
         <argument key="user">root</argument>
         <argument key="password">alternosfera511</argument>
         <argument key="charset">UTF8</argument>

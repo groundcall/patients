@@ -1,8 +1,0 @@
-36800d,127.0.0.1,GET,http://patients.local/app_dev.php/patients/201/show,1404314985,
-75c4d8,127.0.0.1,GET,http://patients.local/app_dev.php/patients/201/edit,1404314988,
-b75424,127.0.0.1,PUT,http://patients.local/app_dev.php/patients/201/update,1404314997,
-436a7a,127.0.0.1,PUT,http://patients.local/app_dev.php/patients/201/update,1404315005,
-0e4d13,127.0.0.1,GET,http://patients.local/app_dev.php/patients/201/edit,1404315005,
-caad2a,127.0.0.1,PUT,http://patients.local/app_dev.php/patients/201/update,1404315007,
-d517f6,127.0.0.1,GET,http://patients.local/app_dev.php/patients/201/edit,1404315007,
-0639b6,127.0.0.1,GET,http://patients.local/app_dev.php/patients/,1404315008,
