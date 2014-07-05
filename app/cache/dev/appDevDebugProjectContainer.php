@@ -3522,7 +3522,7 @@ class appDevDebugProjectContainer extends Container
             'kernel.root_dir' => '/var/www/patients/app',
             'kernel.environment' => 'dev',
             'kernel.debug' => true,
-            'kernel.name' => 'ap_',
+            'kernel.name' => 'app',
             'kernel.cache_dir' => '/var/www/patients/app/cache/dev',
             'kernel.logs_dir' => '/var/www/patients/app/logs',
             'kernel.bundles' => array(
