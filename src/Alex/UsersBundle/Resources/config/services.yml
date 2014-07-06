@@ -5,3 +5,19 @@ services:
 #    alex_users.example:
 #        class: %alex_users.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    alex.patients.admin.hospital:
+        class: Alex\UsersBundle\Admin\HospitalAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: patients, label: Hospitals }
+        arguments:
+            - ~
+            - Alex\UsersBundle\Entity\Hospital
+            - 'AlexUsersBundle:HospitalAdmin'  
+    alex.patients.admin.user:
+        class: Alex\UsersBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: patients, label: Users }
+        arguments:
+            - ~
+            - Alex\UsersBundle\Entity\User
+            - 'AlexUsersBundle:UserAdmin'   

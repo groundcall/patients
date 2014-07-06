@@ -135,6 +135,151 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/admin')) {
+            // sonata_admin_redirect
+            if (rtrim($pathinfo, '/') === '/admin') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'sonata_admin_redirect');
+                }
+
+                return array (  '_controller' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController::redirectAction',  'route' => 'sonata_admin_dashboard',  'permanent' => 'true',  '_route' => 'sonata_admin_redirect',);
+            }
+
+            // sonata_admin_dashboard
+            if ($pathinfo === '/admin/dashboard') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CoreController::dashboardAction',  '_route' => 'sonata_admin_dashboard',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/core')) {
+                // sonata_admin_retrieve_form_element
+                if ($pathinfo === '/admin/core/get-form-field-element') {
+                    return array (  '_controller' => 'sonata.admin.controller.admin:retrieveFormFieldElementAction',  '_route' => 'sonata_admin_retrieve_form_element',);
+                }
+
+                // sonata_admin_append_form_element
+                if ($pathinfo === '/admin/core/append-form-field-element') {
+                    return array (  '_controller' => 'sonata.admin.controller.admin:appendFormFieldElementAction',  '_route' => 'sonata_admin_append_form_element',);
+                }
+
+                // sonata_admin_short_object_information
+                if (0 === strpos($pathinfo, '/admin/core/get-short-object-description') && preg_match('#^/admin/core/get\\-short\\-object\\-description(?:\\.(?P<_format>html|json))?$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'sonata_admin_short_object_information')), array (  '_controller' => 'sonata.admin.controller.admin:getShortObjectDescriptionAction',  '_format' => 'html',));
+                }
+
+                // sonata_admin_set_object_field_value
+                if ($pathinfo === '/admin/core/set-object-field-value') {
+                    return array (  '_controller' => 'sonata.admin.controller.admin:setObjectFieldValueAction',  '_route' => 'sonata_admin_set_object_field_value',);
+                }
+
+            }
+
+            // sonata_admin_search
+            if ($pathinfo === '/admin/search') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CoreController::searchAction',  '_route' => 'sonata_admin_search',);
+            }
+
+            if (0 === strpos($pathinfo, '/admin/alex/users')) {
+                if (0 === strpos($pathinfo, '/admin/alex/users/hospital')) {
+                    // admin_alex_users_hospital_list
+                    if ($pathinfo === '/admin/alex/users/hospital/list') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalAdminController::listAction',  '_sonata_admin' => 'alex.patients.admin.hospital',  '_sonata_name' => 'admin_alex_users_hospital_list',  '_route' => 'admin_alex_users_hospital_list',);
+                    }
+
+                    // admin_alex_users_hospital_create
+                    if ($pathinfo === '/admin/alex/users/hospital/create') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalAdminController::createAction',  '_sonata_admin' => 'alex.patients.admin.hospital',  '_sonata_name' => 'admin_alex_users_hospital_create',  '_route' => 'admin_alex_users_hospital_create',);
+                    }
+
+                    // admin_alex_users_hospital_batch
+                    if ($pathinfo === '/admin/alex/users/hospital/batch') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalAdminController::batchAction',  '_sonata_admin' => 'alex.patients.admin.hospital',  '_sonata_name' => 'admin_alex_users_hospital_batch',  '_route' => 'admin_alex_users_hospital_batch',);
+                    }
+
+                    // admin_alex_users_hospital_edit
+                    if (preg_match('#^/admin/alex/users/hospital/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_alex_users_hospital_edit')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalAdminController::editAction',  '_sonata_admin' => 'alex.patients.admin.hospital',  '_sonata_name' => 'admin_alex_users_hospital_edit',));
+                    }
+
+                    // admin_alex_users_hospital_delete
+                    if (preg_match('#^/admin/alex/users/hospital/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_alex_users_hospital_delete')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalAdminController::deleteAction',  '_sonata_admin' => 'alex.patients.admin.hospital',  '_sonata_name' => 'admin_alex_users_hospital_delete',));
+                    }
+
+                    // admin_alex_users_hospital_show
+                    if (preg_match('#^/admin/alex/users/hospital/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_alex_users_hospital_show')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalAdminController::showAction',  '_sonata_admin' => 'alex.patients.admin.hospital',  '_sonata_name' => 'admin_alex_users_hospital_show',));
+                    }
+
+                    // admin_alex_users_hospital_export
+                    if ($pathinfo === '/admin/alex/users/hospital/export') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\HospitalAdminController::exportAction',  '_sonata_admin' => 'alex.patients.admin.hospital',  '_sonata_name' => 'admin_alex_users_hospital_export',  '_route' => 'admin_alex_users_hospital_export',);
+                    }
+
+                }
+
+                if (0 === strpos($pathinfo, '/admin/alex/users/user')) {
+                    // admin_alex_users_user_list
+                    if ($pathinfo === '/admin/alex/users/user/list') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserAdminController::listAction',  '_sonata_admin' => 'alex.patients.admin.user',  '_sonata_name' => 'admin_alex_users_user_list',  '_route' => 'admin_alex_users_user_list',);
+                    }
+
+                    // admin_alex_users_user_create
+                    if ($pathinfo === '/admin/alex/users/user/create') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserAdminController::createAction',  '_sonata_admin' => 'alex.patients.admin.user',  '_sonata_name' => 'admin_alex_users_user_create',  '_route' => 'admin_alex_users_user_create',);
+                    }
+
+                    // admin_alex_users_user_batch
+                    if ($pathinfo === '/admin/alex/users/user/batch') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserAdminController::batchAction',  '_sonata_admin' => 'alex.patients.admin.user',  '_sonata_name' => 'admin_alex_users_user_batch',  '_route' => 'admin_alex_users_user_batch',);
+                    }
+
+                    // admin_alex_users_user_edit
+                    if (preg_match('#^/admin/alex/users/user/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_alex_users_user_edit')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserAdminController::editAction',  '_sonata_admin' => 'alex.patients.admin.user',  '_sonata_name' => 'admin_alex_users_user_edit',));
+                    }
+
+                    // admin_alex_users_user_delete
+                    if (preg_match('#^/admin/alex/users/user/(?P<id>[^/]++)/delete$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_alex_users_user_delete')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserAdminController::deleteAction',  '_sonata_admin' => 'alex.patients.admin.user',  '_sonata_name' => 'admin_alex_users_user_delete',));
+                    }
+
+                    // admin_alex_users_user_show
+                    if (preg_match('#^/admin/alex/users/user/(?P<id>[^/]++)/show$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'admin_alex_users_user_show')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserAdminController::showAction',  '_sonata_admin' => 'alex.patients.admin.user',  '_sonata_name' => 'admin_alex_users_user_show',));
+                    }
+
+                    // admin_alex_users_user_export
+                    if ($pathinfo === '/admin/alex/users/user/export') {
+                        return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserAdminController::exportAction',  '_sonata_admin' => 'alex.patients.admin.user',  '_sonata_name' => 'admin_alex_users_user_export',  '_route' => 'admin_alex_users_user_export',);
+                    }
+
+                }
+
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/log')) {
+            if (0 === strpos($pathinfo, '/login')) {
+                // login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\DefaultController::loginAction',  '_route' => 'login',);
+                }
+
+                // login_check
+                if ($pathinfo === '/login_check') {
+                    return array('_route' => 'login_check');
+                }
+
+            }
+
+            // logout
+            if ($pathinfo === '/logout') {
+                return array('_route' => 'logout');
+            }
+
+        }
+
         // alex_users_homepage
         if (rtrim($pathinfo, '/') === '') {
             if (substr($pathinfo, -1) !== '/') {

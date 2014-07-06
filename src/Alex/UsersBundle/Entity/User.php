@@ -3,11 +3,12 @@
 namespace Alex\UsersBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
  */
-class User {
+class User implements UserInterface{
 
     /**
      * @var integer
@@ -193,6 +194,26 @@ class User {
      */
     public function setUpdatedAtValue() {
         $this->updated_at = new \DateTime();
+    }
+
+    public function __toString() {
+        return $this->getUsername() ? $this->getUsername() : "";
+    }
+
+    public function getRoles() {
+        return array('ROLE_ADMIN');
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function equals(User $user) {
+        return $user->getUsername() == $this->getUsername();
     }
 
 }

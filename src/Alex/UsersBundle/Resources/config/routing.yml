@@ -1,6 +1,17 @@
+login:
+    pattern:   /login
+    defaults:  { _controller: AlexUsersBundle:Default:login }
+    
+login_check:
+    pattern:   /login_check
+    
+logout:
+    pattern: /logout
+    
 alex_users_homepage:
     pattern:  /
     defaults: { _controller: AlexUsersBundle:Patient:index }
+    
 AlexUsersBundle_users:
         resource: "@AlexUsersBundle/Resources/config/routing/user.yml"
         prefix:   /users
