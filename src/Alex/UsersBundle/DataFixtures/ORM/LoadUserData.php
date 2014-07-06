@@ -6,6 +6,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Alex\UsersBundle\Entity\User;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+
+
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
 

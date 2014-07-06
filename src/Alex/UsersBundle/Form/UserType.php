@@ -16,9 +16,10 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password')
+            ->add('password', 'repeated', array('type' => 'password', 'first_name' => 'Password', 'second_name' => 'RetypePassword'))
             ->add('name')
-            ->add('is_admin')
+                
+                
         ;
     }
     
@@ -39,4 +40,6 @@ class UserType extends AbstractType
     {
         return 'alex_usersbundle_user';
     }
+    
+    
 }

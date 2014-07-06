@@ -4,37 +4,50 @@ namespace Alex\UsersBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Alex\UsersBundle\Entity\Patient;
 use Alex\UsersBundle\Form\PatientType;
+use Alex\UsersBundle\Form\FilterType;
 
 /**
  * Patient controller.
  *
  */
-class PatientController extends Controller
-{
+class PatientController extends Controller {
 
     /**
      * Lists all Patient entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction(Request $request) {
+
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AlexUsersBundle:Patient')->findAll();
+        $filter = new \Alex\UsersBundle\Entity\Filter;
+
+        if ($request->query->get('name')) {
+            $filter->setName($request->query->get('name'));
+        }
+        if ($request->query->get('hospital_id')) {
+            $filter->setHospital_id($request->query->get('hospital_id'));
+        }else{
+             $filter->setHospital_id($request->query->get('hospital_id'));
+        }
+
+        $entities = $em->getRepository('AlexUsersBundle:Patient')->getPatients($filter);
+        $hospitals = $em->getRepository('AlexUsersBundle:Hospital')->findall($filter);
 
         return $this->render('AlexUsersBundle:Patient:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
+                    'hospitals' => $hospitals,
+                    'filter' => $filter,
         ));
     }
+
     /**
      * Creates a new Patient entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Patient();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -48,8 +61,8 @@ class PatientController extends Controller
         }
 
         return $this->render('AlexUsersBundle:Patient:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -60,8 +73,7 @@ class PatientController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Patient $entity)
-    {
+    private function createCreateForm(Patient $entity) {
         $form = $this->createForm(new PatientType(), $entity, array(
             'action' => $this->generateUrl('patients_create'),
             'method' => 'POST',
@@ -76,14 +88,13 @@ class PatientController extends Controller
      * Displays a form to create a new Patient entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Patient();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('AlexUsersBundle:Patient:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +102,7 @@ class PatientController extends Controller
      * Finds and displays a Patient entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AlexUsersBundle:Patient')->find($id);
@@ -104,8 +114,8 @@ class PatientController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AlexUsersBundle:Patient:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -113,8 +123,7 @@ class PatientController extends Controller
      * Displays a form to edit an existing Patient entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AlexUsersBundle:Patient')->find($id);
@@ -127,21 +136,20 @@ class PatientController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AlexUsersBundle:Patient:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Patient entity.
-    *
-    * @param Patient $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Patient $entity)
-    {
+     * Creates a form to edit a Patient entity.
+     *
+     * @param Patient $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Patient $entity) {
         $form = $this->createForm(new PatientType(), $entity, array(
             'action' => $this->generateUrl('patients_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -151,12 +159,12 @@ class PatientController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Patient entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AlexUsersBundle:Patient')->find($id);
@@ -176,17 +184,17 @@ class PatientController extends Controller
         }
 
         return $this->render('AlexUsersBundle:Patient:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Patient entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -212,13 +220,13 @@ class PatientController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('patients_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('patients_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

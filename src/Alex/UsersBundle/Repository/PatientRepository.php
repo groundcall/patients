@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PatientRepository extends EntityRepository {
 
-    public function getPatients($hospital_id = null) {
+    public function getPatients($filter = null) {
         $qb = $this->createQueryBuilder('p')
 //                ->where('p.active = :active')
 //                ->setParameter('active', $active)
@@ -24,9 +24,13 @@ class PatientRepository extends EntityRepository {
 //        if ($offset) {
 //            $qb->setFirstResult($offset);
 //        }
-        if ($hospital_id) {
+        if ($filter->getHospital_id()) {
             $qb->andWhere('p.hospital = :hospital_id')
-                    ->setParameter('hospital_id', $hospital_id);
+                    ->setParameter('hospital_id', $filter->getHospital_id());
+        }
+        if ($filter->getName()) {
+            $qb->andWhere($qb->expr()->like('p.name', ':name'))
+                    ->setParameter('name', '%'.$filter->getName().'%');
         }
 
         $query = $qb->getQuery();

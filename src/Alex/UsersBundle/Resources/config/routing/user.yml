@@ -16,7 +16,7 @@ users_create:
     requirements: { _method: post }
 
 users_edit:
-    path:     /{id}/edit
+    path:     /edit
     defaults: { _controller: "AlexUsersBundle:User:edit" }
 
 users_update:

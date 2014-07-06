@@ -10,8 +10,15 @@ logout:
     
 alex_users_homepage:
     pattern:  /
-    defaults: { _controller: AlexUsersBundle:Patient:index }
+    defaults: { _controller: AlexUsersBundle:Default:login }
     
+alex_users_admin:
+    pattern: /admin
+    
+alex_users_patients:
+    pattern: /patients
+    defaults: { _controller: AlexUsersBundle:Patient:index }
+
 AlexUsersBundle_users:
         resource: "@AlexUsersBundle/Resources/config/routing/user.yml"
         prefix:   /users

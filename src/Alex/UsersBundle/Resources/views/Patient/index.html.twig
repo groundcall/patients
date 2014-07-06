@@ -2,6 +2,18 @@
 
 {% block body -%}
     <h1>Patient list</h1>
+    <div>
+        <form name="input" action="{{ path('patients') }}" method="get">
+            Name: <input type="text" name="name" {% if (filter.name) %} value="{{filter.name}}" {% endif %} >
+            <select name="hospital_id" id="hospital_id">
+                <option value="">All Hospitals</option>
+                {% for hospital in hospitals %}
+                    <option value="{{hospital.id}}" {% if (filter.hospital_id) == hospital.id %} selected="yes" {% endif %}>{{hospital.name}}  </option>
+                {% endfor %}
+            </select>
+            <input type="submit" name="Submit">
+        </form>
+    </div>
 
     <table class="records_list">
         <thead>
@@ -16,34 +28,34 @@
             </tr>
         </thead>
         <tbody>
-        {% for key, entity in entities %}
-            <tr>
-                <td>{{ key + 1 }}</td>
-                <td><a href="{{ path('patients_show', { 'id': entity.id }) }}">{{ entity.name }}</td>
-                <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ entity.phone }}</td>
-                <td>{{ entity.address }}</td>
-                <td><a href="{{ path('patients_show', { 'id': entity.id }) }}">{{ entity.hospital.name }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('patients_show', { 'id': entity.id }) }}">Show Patient</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('patients_edit', { 'id': entity.id }) }}">Edit Patient</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for key, entity in entities %}
+                <tr>
+                    <td>{{ key + 1 }}</td>
+                    <td><a href="{{ path('patients_show', { 'id': entity.id }) }}">{{ entity.name }}</td>
+                    <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d') }}{% endif %}</td>
+                    <td>{{ entity.phone }}</td>
+                    <td>{{ entity.address }}</td>
+                    <td><a href="{{ path('hospital_show', { 'id': entity.hospital.id }) }}">{{ entity.hospital.name }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('patients_show', { 'id': entity.id }) }}">Show Patient</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('patients_edit', { 'id': entity.id }) }}">Edit Patient</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('patients_new') }}">
                 Add a new Patient
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Validator\ErrorElement;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Alex\UsersBundle\Entity\User;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 class UserAdmin extends Admin {
 
@@ -20,7 +21,7 @@ class UserAdmin extends Admin {
     protected function configureFormFields(FormMapper $formMapper) {
         $formMapper
                 ->add('username')
-                ->add('password')
+                ->add('password', 'repeated', array('type' => 'password', 'first_name' => 'Password', 'second_name' => 'RetypePassword'))
                 ->add('name')
                 ->add('is_admin')
         ;

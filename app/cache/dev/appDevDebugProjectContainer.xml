@@ -2924,7 +2924,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>53b961eecebc5</argument>
+            <argument>53b99c31dd734</argument>
           </service>
         </argument>
       </argument>
@@ -3051,6 +3051,17 @@
                   </argument>
                   <argument>null</argument>
                 </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/patients</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_FULLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
               </service>
             </argument>
             <argument type="service">
@@ -3132,7 +3143,7 @@
                 </argument>
                 <argument type="collection">
                   <argument key="login_path">/login</argument>
-                  <argument key="default_target_path">alex_users_homepage</argument>
+                  <argument key="default_target_path">/patients</argument>
                   <argument key="always_use_default_target_path">false</argument>
                   <argument key="target_path_parameter">_target_path</argument>
                   <argument key="use_referer">false</argument>
@@ -3178,7 +3189,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>53b961eecebc5</argument>
+            <argument>53b99c31dd734</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -3197,6 +3208,17 @@
                   </argument>
                   <argument type="collection">
                     <argument>ROLE_ADMIN</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/patients</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_FULLY</argument>
                   </argument>
                   <argument>null</argument>
                 </call>

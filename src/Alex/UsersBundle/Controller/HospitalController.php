@@ -100,8 +100,9 @@ class HospitalController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Hospital entity.');
         }
-        
-        $patients =  $em->getRepository('AlexUsersBundle:Patient')->getPatients($id);
+        $filter = new \Alex\UsersBundle\Entity\Filter;
+        $filter->setHospital_id($id);
+        $patients =  $em->getRepository('AlexUsersBundle:Patient')->getPatients($filter);
                 
         $deleteForm = $this->createDeleteForm($id);
 

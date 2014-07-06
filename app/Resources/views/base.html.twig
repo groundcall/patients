@@ -3,11 +3,19 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% block user_block %}
+    <a href="{{ path('patients') }}">Homepage</a>
+    <a href="{{ path('logout') }}">Logout</a>
+    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('alex_users_admin') }}">Admin Panel</a>{% endif %}
+    <a href="{{ path('users_edit') }}">Edit account</a>
+{% endblock%}
+</head>
+<body>
+    {% block body %}
+    {% endblock %}
+    {% block javascripts %}
+    {% endblock %}
+</body>
 </html>

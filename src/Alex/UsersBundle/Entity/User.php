@@ -5,10 +5,11 @@ namespace Alex\UsersBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 /**
  * User
  */
-class User implements UserInterface{
+class User implements UserInterface {
 
     /**
      * @var integer
@@ -201,7 +202,12 @@ class User implements UserInterface{
     }
 
     public function getRoles() {
-        return array('ROLE_ADMIN');
+        if ($this->getIsAdmin() == 1) {
+            return array('ROLE_ADMIN');
+        }
+        if ($this->getIsAdmin() == 0) {
+            return array('ROLE_USER');
+        }
     }
 
     public function getSalt() {
@@ -214,6 +220,14 @@ class User implements UserInterface{
 
     public function equals(User $user) {
         return $user->getUsername() == $this->getUsername();
+    }
+
+    public function encryptPassword() {
+//        $password = $this->getPassword();
+//        $factory = $this->container->get('security.encoder_factory');
+//        $encoder = $factory->getEncoder($this);
+//        $encodedPassword = $encoder->encodePassword($password, $this->getSalt());
+//        $this->setPassword($encodedPassword);
     }
 
 }

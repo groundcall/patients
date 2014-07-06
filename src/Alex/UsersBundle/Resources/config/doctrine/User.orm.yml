@@ -25,6 +25,6 @@ Alex\UsersBundle\Entity\User:
             type: datetime
             nullable: true
     lifecycleCallbacks:
-        prePersist: [ setCreatedAtValue ]
-        preUpdate: [ setUpdatedAtValue ]
+        prePersist: [ encryptPassword, setCreatedAtValue ]
+        preUpdate: [ encryptPassword, setUpdatedAtValue ]
             

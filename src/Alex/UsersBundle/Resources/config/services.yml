@@ -20,4 +20,5 @@ services:
         arguments:
             - ~
             - Alex\UsersBundle\Entity\User
-            - 'AlexUsersBundle:UserAdmin'   
+            - 'AlexUsersBundle:UserAdmin' 
+

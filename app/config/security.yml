@@ -18,13 +18,14 @@ security:
             form_login:
                 login_path:  /login
                 check_path:  /login_check
-                default_target_path: alex_users_homepage
+                default_target_path: /patients
             logout:
                 path:   /logout
                 target: /
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/patients, roles: IS_AUTHENTICATED_FULLY }
 
     providers:
         main:
