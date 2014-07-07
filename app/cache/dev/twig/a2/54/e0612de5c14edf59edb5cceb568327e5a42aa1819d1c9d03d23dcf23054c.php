@@ -39,16 +39,16 @@ class __TwigTemplate_a254e0612de5c14edf59edb5cceb568327e5a42aa1819d1c9d03d23dcf2
     ";
         // line 8
         $this->displayBlock('user_block', $context, $blocks);
-        // line 14
+        // line 15
         echo "</head>
 <body>
     ";
-        // line 16
+        // line 17
         $this->displayBlock('body', $context, $blocks);
-        // line 18
+        // line 19
         echo "    ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 20
+        // line 21
         echo "</body>
 </html>
 ";
@@ -71,7 +71,7 @@ class __TwigTemplate_a254e0612de5c14edf59edb5cceb568327e5a42aa1819d1c9d03d23dcf2
         // line 9
         echo "    <a href=\"";
         echo $this->env->getExtension('routing')->getPath("patients");
-        echo "\">Homepage</a>
+        echo "\">Patients List</a>
     <a href=\"";
         // line 10
         echo $this->env->getExtension('routing')->getPath("logout");
@@ -87,20 +87,24 @@ class __TwigTemplate_a254e0612de5c14edf59edb5cceb568327e5a42aa1819d1c9d03d23dcf2
         echo "    <a href=\"";
         echo $this->env->getExtension('routing')->getPath("users_edit");
         echo "\">Edit account</a>
+    <a href=\"";
+        // line 13
+        echo $this->env->getExtension('routing')->getPath("hospital");
+        echo "\">Hospital list</a>
 ";
     }
 
-    // line 16
+    // line 17
     public function block_body($context, array $blocks = array())
     {
-        // line 17
+        // line 18
         echo "    ";
     }
 
-    // line 18
+    // line 19
     public function block_javascripts($context, array $blocks = array())
     {
-        // line 19
+        // line 20
         echo "    ";
     }
 
@@ -116,6 +120,6 @@ class __TwigTemplate_a254e0612de5c14edf59edb5cceb568327e5a42aa1819d1c9d03d23dcf2
 
     public function getDebugInfo()
     {
-        return array (  104 => 19,  101 => 18,  97 => 17,  87 => 12,  81 => 11,  77 => 10,  72 => 9,  69 => 8,  64 => 6,  58 => 5,  49 => 18,  47 => 16,  43 => 14,  41 => 8,  36 => 7,  34 => 6,  30 => 5,  24 => 1,  113 => 44,  106 => 39,  94 => 16,  88 => 30,  79 => 26,  75 => 25,  71 => 24,  65 => 23,  59 => 22,  55 => 21,  52 => 20,  48 => 19,  31 => 4,  28 => 3,);
+        return array (  108 => 20,  105 => 19,  101 => 18,  98 => 17,  92 => 13,  87 => 12,  81 => 11,  77 => 10,  72 => 9,  69 => 8,  64 => 6,  58 => 5,  52 => 21,  49 => 19,  47 => 17,  43 => 15,  41 => 8,  36 => 7,  34 => 6,  30 => 5,  24 => 1,);
     }
 }

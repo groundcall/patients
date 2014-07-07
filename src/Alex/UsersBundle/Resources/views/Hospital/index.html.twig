@@ -10,7 +10,6 @@
                 <th>Name</th>
                 <th>Address</th>
                 <th>Phone</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,26 +19,10 @@
                 <td><a href="{{ path('hospital_show', { 'id': entity.id }) }}">{{ entity.name }}</a></td>
                 <td>{{ entity.address }}</td>
                 <td>{{ entity.phone }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('hospital_show', { 'id': entity.id }) }}">Show Hospital</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('hospital_edit', { 'id': entity.id }) }}">Edit Hospital</a>
-                    </li>
-                </ul>
-                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
         <ul>
-        <li>
-            <a href="{{ path('hospital_new') }}">
-                Add a Hospital
-            </a>
-        </li>
     </ul>
     {% endblock %}

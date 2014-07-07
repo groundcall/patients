@@ -24,7 +24,6 @@
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Hospital</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -36,16 +35,6 @@
                     <td>{{ entity.phone }}</td>
                     <td>{{ entity.address }}</td>
                     <td><a href="{{ path('hospital_show', { 'id': entity.hospital.id }) }}">{{ entity.hospital.name }}</td>
-                    <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('patients_show', { 'id': entity.id }) }}">Show Patient</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('patients_edit', { 'id': entity.id }) }}">Edit Patient</a>
-                            </li>
-                        </ul>
-                    </td>
                 </tr>
             {% endfor %}
         </tbody>

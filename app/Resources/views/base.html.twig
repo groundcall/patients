@@ -6,10 +6,11 @@
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     {% block user_block %}
-    <a href="{{ path('patients') }}">Homepage</a>
+    <a href="{{ path('patients') }}">Patients List</a>
     <a href="{{ path('logout') }}">Logout</a>
     {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('alex_users_admin') }}">Admin Panel</a>{% endif %}
     <a href="{{ path('users_edit') }}">Edit account</a>
+    <a href="{{ path('hospital') }}">Hospital list</a>
 {% endblock%}
 </head>
 <body>

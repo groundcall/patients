@@ -6,5 +6,7 @@ use Sonata\AdminBundle\Controller\CRUDController as Controller;
  
 class UserAdminController extends Controller
 {
-    // eYour code will be here
+    public function preUpdate(){
+        
+    }
 }
