@@ -1,14 +1,10 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Hospital</h1>
+    <h1>{{ entity.name }}</h1>
 
-    <table class="record_properties">
+    <table class="table table-condensed">
         <tbody>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
             <tr>
                 <th>Address</th>
                 <td>{{ entity.address }}</td>
@@ -19,23 +15,28 @@
             </tr>
         </tbody>
     </table>
-
-    <table class="jobs">
-        {% for patient in patients %}
-            <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
-                <td class="name"><a href="{{ path('patients_show', { 'id': patient.id }) }}">{{ patient.name }}</a></td>
-                <td class="company">{{ patient.birthdate | date('Y-m-d')}}</td>
-                <td class="name">{{ patient.phone }}</td>
-                <td class="name">{{ patient.address }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <ul class="record_actions">
-        <li>
-            <a href="{{ path('hospital') }}">
-                Back to the list
-            </a>
-        </li>
-    </ul>
+    <div>
+        <table class="table table-striped table-bordered table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Birthdate</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, patient in patients %}
+                    <tr class="{{ cycle(['even', 'odd'], loop.index) }}">
+                        <td>{{ key + 1 }}</td>
+                        <td class="name"><a href="{{ path('patients_show', { 'id': patient.id }) }}">{{ patient.name }}</a></td>
+                        <td class="company">{{ patient.birthdate | date('Y-m-d')}}</td>
+                        <td class="name">{{ patient.phone }}</td>
+                        <td class="name">{{ patient.address }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

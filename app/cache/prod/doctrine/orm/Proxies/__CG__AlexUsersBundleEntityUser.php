@@ -397,4 +397,15 @@ class User extends \Alex\UsersBundle\Entity\User implements \Doctrine\ORM\Proxy\
         return parent::equals($user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function encryptPassword()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'encryptPassword', array());
+
+        return parent::encryptPassword();
+    }
+
 }

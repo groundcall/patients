@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    {% block user_block %}
-    <a href="{{ path('patients') }}">Patients List</a>
-    <a href="{{ path('logout') }}">Logout</a>
-    {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('alex_users_admin') }}">Admin Panel</a>{% endif %}
-    <a href="{{ path('users_edit') }}">Edit account</a>
-    <a href="{{ path('hospital') }}">Hospital list</a>
-{% endblock%}
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>{% block title %}Patients Manager{% endblock %}</title>
+        {% stylesheets '/public/css/bootstrap.css'%} <link href="{{ asset('/public/css/bootstrap.css') }}" rel="stylesheet">{% endstylesheets %}
+        {#{% block stylesheets %}
+            {% stylesheets 'bundles/alexusers/css/*' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}#}
+    {% block user_block %}{% endblock%}
 </head>
 <body>
-    {% block body %}
-    {% endblock %}
-    {% block javascripts %}
-    {% endblock %}
+    <div class="container">
+        <div class="masthead">
+            <h1 class="text-muted">Patients Manager</h1>
+            <ul class="nav nav-justified">
+                <li class="active"><a href="{{ path('patients') }}">Patients List</a></li>
+                <li><a href="{{ path('hospital') }}">Hospital list</a></li>
+                <li> <a href="{{ path('users_edit') }}">Edit account</a></li>
+                <li>{% if is_granted('ROLE_ADMIN') %}<a href="{{ path('alex_users_admin') }}">Admin Panel</a>{% endif %}</li>
+                <li></li>
+                <li><a href="{{ path('logout') }}">Logout</a></li>
+            </ul>
+        </div>
+        {% block body %}
+        {% endblock %}
+    </div>
+    <div class="footer" style="position: absolute">
+      <div class="container">
+        <p class="text-muted">© Alexandru Butnar</p>
+      </div>
+    </div>
 </body>
 </html>
+
+

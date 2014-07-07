@@ -1,13 +1,31 @@
-{% if error %}
-    <div>{{ error.message }}</div>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>{% block title %}Patients Manager{% endblock %}</title>
+        <link href="{{ asset('/public/css/bootstrap.css') }}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            {% if error %}
+                <div>{{ error.message }}</div>
+            {% endif %}
+            <form class="well" action="{{ path('login_check') }}" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-<form action="{{ path('login_check') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password" />
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
+                <button type="submit">Login</button>
+            </form>
+        </div>
 
-    <button type="submit">login</button>
-</form>
+    </body>
+</html>
+
+

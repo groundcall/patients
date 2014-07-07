@@ -3,7 +3,7 @@ parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
     database_port: null
-    database_name: patients_db
+    database_name: patients
     database_user: root
     database_password: alternosfera511
     mailer_transport: smtp

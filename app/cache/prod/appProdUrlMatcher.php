@@ -178,7 +178,17 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
                 return $this->redirect($pathinfo.'/', 'alex_users_homepage');
             }
 
-            return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::indexAction',  '_route' => 'alex_users_homepage',);
+            return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\DefaultController::loginAction',  '_route' => 'alex_users_homepage',);
+        }
+
+        // alex_users_admin
+        if ($pathinfo === '/admin') {
+            return array('_route' => 'alex_users_admin');
+        }
+
+        // alex_users_patients
+        if ($pathinfo === '/patients') {
+            return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\PatientController::indexAction',  '_route' => 'alex_users_patients',);
         }
 
         if (0 === strpos($pathinfo, '/users')) {
@@ -213,8 +223,8 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             not_users_create:
 
             // users_edit
-            if (preg_match('#^/users/(?P<id>[^/]++)/edit$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'users_edit')), array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::editAction',));
+            if ($pathinfo === '/users/edit') {
+                return array (  '_controller' => 'Alex\\UsersBundle\\Controller\\UserController::editAction',  '_route' => 'users_edit',);
             }
 
             // users_update

@@ -1,17 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Patient</h1>
+    <h1>{{ entity.name }}</h1>
 
-    <table class="record_properties">
+    <table class="table table-condensed">
         <tbody>
             <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
                 <th>Birthdate</th>
-                <td>{{ entity.birthdate|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.birthdate|date('Y-m-d') }}</td>
             </tr>
             <tr>
                 <th>Phone</th>
@@ -32,17 +28,17 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('patients') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('patients_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('patients') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('patients_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}
